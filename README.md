@@ -25,13 +25,21 @@ and commercialization conversations):
 | `10-next-90-days-plan.md` | Execution plan with day-90 scoreboard |
 | `11-prototype-structure.md` | Prototype IA, flow, components, design system, copy |
 
-**Prototype** (`prototype/`): a zero-build static implementation of the
-killer demo — open `prototype/index.html` in any browser. Click **"Load
-sample persona — Yoon Soon-ja"** on the landing screen for the scripted
-demo path, then step through with Continue. Toggle **🎙 Presenter notes**
-for narrator cues. All scoring is deterministic and template-based (no ML,
-no free text generation); red-flag logic, instrument-style scoring, the
-bilingual report, and print output all work offline.
+**Website** (`docs/`): the actual PainBridge site, zero-build static
+HTML/CSS/JS — deployable directly via GitHub Pages (Settings → Pages →
+deploy from branch, `/docs` folder).
+
+- `docs/index.html` — landing page (positioning, mechanism layer, report
+  preview, safety architecture, CTAs into the demo)
+- `docs/science.html` — the Pain Legibility Cascade model, hypotheses, and
+  design principles
+- `docs/demo/` — the interactive killer-demo prototype: open
+  `docs/demo/index.html`, click **"Load sample persona — Yoon Soon-ja"**
+  for the scripted path, and step through to the one-page report. Toggle
+  **🎙 Presenter notes** for narrator cues. All scoring is deterministic
+  and template-based (no ML, no free text generation); red-flag logic,
+  instrument-style scoring, the bilingual report, and print output all
+  work offline.
 
 ## Safety posture
 

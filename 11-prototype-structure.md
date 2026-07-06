@@ -194,7 +194,7 @@ framework then.)
 **Files:**
 
 ```
-prototype/
+docs/demo/        (served as part of the website in docs/)
 ├── index.html    # all 9 screens as sections + SVG body maps
 ├── styles.css    # design tokens + components + print CSS
 └── app.js        # COPY strings · PERSONA data · state · scoring · renderers
