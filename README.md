@@ -25,9 +25,13 @@ and commercialization conversations):
 | `10-next-90-days-plan.md` | Execution plan with day-90 scoreboard |
 | `11-prototype-structure.md` | Prototype IA, flow, components, design system, copy |
 
-**Website** (`docs/`): the actual PainBridge site, zero-build static
-HTML/CSS/JS — deployable directly via GitHub Pages (Settings → Pages →
-deploy from branch, `/docs` folder).
+**Website + installable app** (`docs/`): the actual PainBridge site,
+zero-build static HTML/CSS/JS — deployable directly via GitHub Pages
+(Settings → Pages → deploy from branch, `/docs` folder). The site is a
+**Progressive Web App**: once served over HTTPS, it installs on phones with
+its own icon and works offline — iPhone: Safari → Share → *Add to Home
+Screen*; Android: Chrome → *Install app*. Store-distribution path
+(Capacitor): see `12-mobile-app-strategy.md`.
 
 - `docs/index.html` — landing page (positioning, mechanism layer, report
   preview, safety architecture, CTAs into the demo)

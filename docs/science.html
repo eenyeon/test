@@ -6,6 +6,13 @@
 <title>The Science — PainBridge</title>
 <meta name="description" content="The Pain Legibility Cascade: the scientific model behind PainBridge's pain phenotyping and clinical communication platform.">
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e6b68">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PainBridge">
 </head>
 <body>
 
@@ -138,5 +145,10 @@
   </div>
 </footer>
 
+<script>
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
 </body>
 </html>
