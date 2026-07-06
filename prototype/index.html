@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PainBridge — Phenotype Report Prototype</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="brand">Pain<span>Bridge</span> <em class="proto-tag">prototype</em></div>
+  <nav class="rail" id="rail" aria-label="Progress"></nav>
+  <button class="ghost-btn" id="presenterToggle" aria-pressed="false">🎙 Presenter notes</button>
+</header>
+
+<aside class="presenter-strip no-print" id="presenterStrip" hidden></aside>
+
+<main id="app">
+
+<!-- ============ S0 LANDING ============ -->
+<section class="step" data-step="0">
+  <div class="hero">
+    <p class="eyebrow">Patient-facing pain phenotyping · demo prototype</p>
+    <h1 id="heroTitle">Prepare for your visit. In your own words.</h1>
+    <p class="hero-ko" id="heroKo">당신의 언어로, 진료를 준비하세요.</p>
+    <p class="lede">PainBridge helps you describe your pain clearly and prepares a one-page
+      summary you and your clinician can use together.</p>
+    <p class="contract"><strong>PainBridge does not diagnose and does not replace medical care.</strong></p>
+    <p class="meta-line">~20 minutes · Your answers are private · You choose what to share</p>
+
+    <div class="field">
+      <label>Language / 언어</label>
+      <div class="chip-group" id="langChips">
+        <button class="chip" data-lang="en">English</button>
+        <button class="chip selected" data-lang="ko">한국어</button>
+        <button class="chip" data-lang="es">Español</button>
+        <button class="chip" data-lang="zh">中文</button>
+      </div>
+    </div>
+
+    <fieldset class="consent card">
+      <legend>Your choices about your information</legend>
+      <label><input type="checkbox" checked disabled> Use this tool to prepare my visit summary <em>(required)</em></label>
+      <label><input type="checkbox" id="consentResearch" checked> My de-identified answers may be used for research on pain communication</label>
+      <label><input type="checkbox" id="consentRecontact" checked> PainBridge may contact me once after my visit to ask how it went</label>
+      <label><input type="checkbox" id="consentFuture"> My de-identified answers may be used in future approved studies</label>
+    </fieldset>
+
+    <div class="actions">
+      <button class="primary" data-next>Start my pain summary · 통증 요약 시작하기</button>
+      <button class="secondary" id="loadPersona">Load sample persona — Yoon Soon-ja (demo)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S1 PAIN STORY ============ -->
+<section class="step" data-step="1" hidden>
+  <h2>Tell us how this pain started and how it behaves.</h2>
+  <p class="hint">Short answers are fine. You can write in Korean, English, or both.
+    <strong>Your words will be kept exactly as written.</strong></p>
+
+  <div class="card q-card">
+    <label for="onset">When and how did the pain start?</label>
+    <textarea id="onset" rows="2"></textarea>
+    <p class="gloss" id="onsetGloss"></p>
+  </div>
+
+  <div class="card q-card">
+    <label for="course">How has it changed over time?</label>
+    <textarea id="course" rows="2"></textarea>
+    <p class="gloss" id="courseGloss"></p>
+  </div>
+
+  <div class="card q-card">
+    <label>What makes it worse?</label>
+    <div class="chip-group multi" id="worseChips"></div>
+    <label class="mt">What helps, even a little?</label>
+    <div class="chip-group multi" id="betterChips"></div>
+  </div>
+
+  <div class="card q-card priority-card">
+    <label for="priority">What do you most want your clinician to understand?</label>
+    <textarea id="priority" rows="2"></textarea>
+    <p class="gloss" id="priorityGloss"></p>
+    <p class="hint">This will appear at the top of your report, in your exact words.</p>
+  </div>
+
+  <div class="actions"><button class="secondary" data-back>Back</button><button class="primary" data-next>Continue</button></div>
+</section>
+
+<!-- ============ S2 BODY MAP ============ -->
+<section class="step" data-step="2" hidden>
+  <h2>Show us where it hurts.</h2>
+  <p class="hint">Tap every area that hurts — <strong>not just the worst one</strong>. Many people have
+    more than one pain area. Tap again to change: <span class="key mild">once = aches</span>
+    <span class="key severe">twice = severe</span> <span class="key">three times = clear</span></p>
+
+  <div class="bodymap-wrap">
+    <div class="figures">
+      <figure>
+        <figcaption>Front</figcaption>
+        <svg id="figFront" viewBox="0 0 200 430" role="group" aria-label="Front body map">
+          <circle cx="100" cy="38" r="25" class="base"/>
+          <ellipse cx="80"  cy="52" rx="9" ry="7" class="region" data-region="jawL"><title>Jaw (left)</title></ellipse>
+          <ellipse cx="120" cy="52" rx="9" ry="7" class="region" data-region="jawR"><title>Jaw (right)</title></ellipse>
+          <rect x="88" y="62" width="24" height="14" rx="6" class="base"/>
+          <rect x="70"  y="78"  width="60" height="44" rx="10" class="region" data-region="chest"><title>Chest</title></rect>
+          <rect x="72"  y="126" width="56" height="40" rx="10" class="region" data-region="abdomen"><title>Abdomen</title></rect>
+          <rect x="72"  y="170" width="56" height="24" rx="8"  class="base"/>
+          <rect x="40"  y="82"  width="22" height="54" rx="10" class="region" data-region="upperArmL"><title>Upper arm (left)</title></rect>
+          <rect x="138" y="82"  width="22" height="54" rx="10" class="region" data-region="upperArmR"><title>Upper arm (right)</title></rect>
+          <rect x="36"  y="140" width="20" height="56" rx="9"  class="region" data-region="lowerArmL"><title>Lower arm (left)</title></rect>
+          <rect x="144" y="140" width="20" height="56" rx="9"  class="region" data-region="lowerArmR"><title>Lower arm (right)</title></rect>
+          <rect x="74"  y="198" width="24" height="82" rx="10" class="region" data-region="upperLegL"><title>Upper leg (left)</title></rect>
+          <rect x="102" y="198" width="24" height="82" rx="10" class="region" data-region="upperLegR"><title>Upper leg (right)</title></rect>
+          <rect x="76"  y="284" width="20" height="88" rx="9"  class="region" data-region="lowerLegL"><title>Lower leg (left)</title></rect>
+          <rect x="104" y="284" width="20" height="88" rx="9"  class="region" data-region="lowerLegR"><title>Lower leg (right)</title></rect>
+          <rect x="72" y="376" width="26" height="12" rx="5" class="base"/><rect x="102" y="376" width="26" height="12" rx="5" class="base"/>
+        </svg>
+      </figure>
+      <figure>
+        <figcaption>Back</figcaption>
+        <svg id="figBack" viewBox="0 0 200 430" role="group" aria-label="Back body map">
+          <circle cx="100" cy="38" r="25" class="base"/>
+          <rect x="88"  y="62"  width="24" height="16" rx="6" class="region" data-region="neck"><title>Neck</title></rect>
+          <rect x="52"  y="80"  width="42" height="18" rx="8" class="region" data-region="shoulderL"><title>Shoulder girdle (left)</title></rect>
+          <rect x="106" y="80"  width="42" height="18" rx="8" class="region" data-region="shoulderR"><title>Shoulder girdle (right)</title></rect>
+          <rect x="70"  y="102" width="60" height="40" rx="9" class="region" data-region="upperBack"><title>Upper back</title></rect>
+          <rect x="72"  y="146" width="56" height="32" rx="9" class="region" data-region="lowerBack"><title>Lower back</title></rect>
+          <rect x="68"  y="182" width="30" height="26" rx="9" class="region" data-region="hipL"><title>Hip / buttock (left)</title></rect>
+          <rect x="102" y="182" width="30" height="26" rx="9" class="region" data-region="hipR"><title>Hip / buttock (right)</title></rect>
+          <rect x="76"  y="212" width="20" height="160" rx="9" class="base"/>
+          <rect x="104" y="212" width="20" height="160" rx="9" class="base"/>
+          <path id="radPath" class="radiation" d="M 116 162 C 120 200 114 240 114 280 S 112 340 115 388" hidden/>
+          <circle id="radFoot" class="radiation-dot" cx="115" cy="392" r="5" hidden/>
+        </svg>
+      </figure>
+    </div>
+
+    <div class="ledger card">
+      <h3><span id="regionCount">0</span>/19 areas marked</h3>
+      <ul id="regionLedger" class="ledger-list"></ul>
+      <label class="toggle-line"><input type="checkbox" id="radiationToggle">
+        My pain <strong>travels</strong> from my back down my leg</label>
+      <label class="mt">If a word fits any of your pain, tap it:</label>
+      <div class="chip-group multi" id="qualityChips"></div>
+    </div>
+  </div>
+
+  <div class="actions"><button class="secondary" data-back>Back</button><button class="primary" data-next>Continue</button></div>
+</section>
+
+<!-- ============ S3 LANGUAGE / METAPHOR ============ -->
+<section class="step" data-step="3" hidden>
+  <h2>Describe the whole-body ache in your own words — any language.</h2>
+  <div class="idiom-pane card">
+    <input type="text" id="idiomInput" placeholder="예: 삭신이 쑤시다 / e.g., like a deep bruise everywhere">
+    <button class="primary" id="idiomGo">Continue</button>
+    <button class="ghost-btn" id="idiomSkip">Skip — I already described it</button>
+  </div>
+  <div id="idiomPinned" class="idiom-pinned" hidden></div>
+  <div id="clarifiers"></div>
+  <div id="glossBlock" class="card gloss-block" hidden>
+    <h3>Here is how we'll describe this to your clinician.
+      <span class="sacred">Your original words stay on the report.</span></h3>
+    <textarea id="glossText" rows="4"></textarea>
+    <p class="hint">Edit anything that isn't right.</p>
+  </div>
+  <div class="actions"><button class="secondary" data-back>Back</button><button class="primary" data-next>Continue</button></div>
+</section>
+
+<!-- ============ S4 RED FLAGS ============ -->
+<section class="step step-safety" data-step="4" hidden>
+  <h2>A few safety questions first.</h2>
+  <p class="hint">Some symptoms need urgent attention before anything else. Please answer
+    carefully — <strong>this is the most important part.</strong></p>
+  <div id="flagList"></div>
+  <div id="flagResult" hidden></div>
+  <div class="actions"><button class="secondary" data-back>Back</button>
+    <button class="primary" data-next id="flagContinue" disabled>Continue</button></div>
+</section>
+
+<!-- ============ S5 MECHANISM SIGNALS ============ -->
+<section class="step" data-step="5" hidden>
+  <h2>A few structured check-ins, then your patterns.</h2>
+  <details class="card q-block" open>
+    <summary>About the leg pain <em>(nerve-pattern descriptor screen — prototype, modeled on validated instruments)</em></summary>
+    <div class="chip-group multi" id="neuroChips"></div>
+  </details>
+  <details class="card q-block">
+    <summary>Energy, sleep, and thinking <em>(symptom severity — prototype)</em></summary>
+    <div id="sssSliders"></div>
+    <div class="chip-group multi" id="sssSymptoms"></div>
+  </details>
+  <details class="card q-block">
+    <summary>Stiffness and swelling</summary>
+    <label>How long does morning stiffness last? <input type="number" id="stiffness" min="0" max="240" style="width:5em"> minutes</label>
+    <label class="mt"><input type="checkbox" id="swelling"> My joints visibly swell</label>
+  </details>
+  <details class="card q-block">
+    <summary>How pain affects your life <em>(PEG)</em> and what you've tried</summary>
+    <div id="pegSliders"></div>
+    <label class="mt">What have you tried?</label>
+    <div id="treatmentList"></div>
+  </details>
+
+  <div class="actions center"><button class="primary" id="computeSignals">See my patterns</button></div>
+
+  <div id="signalIntro" hidden>
+    <h2>Patterns worth discussing with your clinician.</h2>
+    <p class="hint">These are signals from structured questionnaires — <strong>not diagnoses</strong>.
+      Each score is shown so your clinician can check the reasoning.</p>
+  </div>
+  <div id="signalCards"></div>
+  <div class="actions"><button class="secondary" data-back>Back</button><button class="primary" data-next id="signalsNext" disabled>Continue</button></div>
+</section>
+
+<!-- ============ S6 QUESTIONS ============ -->
+<section class="step" data-step="6" hidden>
+  <h2>Questions you might ask at your visit.</h2>
+  <p class="hint">Pick the ones that matter to you. They'll print in Korean and English.</p>
+  <div class="chip-group" id="specialistToggle">
+    <button class="chip selected" data-spec="pc">Primary care version</button>
+    <button class="chip" data-spec="rheum">Rheumatology version</button>
+  </div>
+  <div id="questionList"></div>
+  <div class="actions"><button class="secondary" data-back>Back</button><button class="primary" data-next>Build my report</button></div>
+</section>
+
+<!-- ============ S7 REPORT ============ -->
+<section class="step" data-step="7" hidden>
+  <div class="report-toolbar no-print">
+    <h2>Your PainBridge Phenotype Report</h2>
+    <div>
+      <button class="chip selected" id="viewClin">Clinician page</button>
+      <button class="chip" id="viewPatient">My prep sheet</button>
+      <button class="primary" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </div>
+  <div id="reportPage" class="report"></div>
+  <div id="patientSheet" class="report patient-sheet" hidden></div>
+  <div class="actions no-print"><button class="secondary" data-back>Back</button><button class="primary" data-next>See care options to discuss</button></div>
+</section>
+
+<!-- ============ S8 PATHWAY ============ -->
+<section class="step" data-step="8" hidden>
+  <h2>Care approaches that often come up for patterns like yours.</h2>
+  <p class="hint">These are conversation starters for your visit — what fits <em>you</em> is a
+    decision for you and your clinician.</p>
+  <div id="pathwayCards"></div>
+  <div class="nextstep card">
+    <strong>Next step:</strong> bring this report to your visit. Language-support services can be
+    requested for any referral — ask; it is your right.
+    <div class="actions center">
+      <button class="primary" onclick="window.print()">Download / Print my report</button>
+      <button class="secondary" data-goto="7">Back to my report</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="nondx-badge no-print">Not a diagnosis — a preparation tool. This prototype
+  summarizes what you enter; it supplements, not replaces, clinical assessment.</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
